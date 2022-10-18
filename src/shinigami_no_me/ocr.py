@@ -7,7 +7,7 @@ from .tools.pretraitement import pretraitement
 from .tools.segmentation import segmentation
 
 
-class Pyocr:
+class Ocr:
     def __init__(self, model_path: str, classes_path: str) -> None:
         self.DIRECTORY = os.path.abspath(".")
         self.MODEL = tf.keras.models.load_model(

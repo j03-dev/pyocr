@@ -3,10 +3,10 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pyocr"
+name = "shinigami_no_me"
 version = "0.0.1"
 authors = [
-    {name="pyocr", email="24nomeniavo@gmail.com"}
+    {name="shinigami_no_me", email="24nomeniavo@gmail.com"}
 ]
 description = 'Optical character recognition'
 requires-python = ">=3.9"
