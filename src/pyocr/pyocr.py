@@ -22,7 +22,7 @@ class Pyocr:
         classes_x = np.argmax(predict_x, axis=1)[0]
         return self.CLASSES[classes_x]
 
-    def cadre(self, list_chars: list, brect_list: list, path_image: str) -> np.ndarray:
+    def print_rect(self, list_chars: list, brect_list: list, path_image: str) -> np.ndarray:
         image = cv2.imread(path_image)
         for char, brect in zip(list_chars, brect_list):
             x, y, w, h = brect
@@ -53,7 +53,7 @@ class Pyocr:
             list_.sort(key=lambda x: x[1])
         return list_sorted
 
-    def printable(self, list_chars: list, brect_list) -> str:
+    def make_list_chars_reable(self, list_chars: list, brect_list) -> str:
         prediction_list_and_brect = []
         for chars, brect in zip(list_chars, brect_list):
             x, y, w, h = brect
@@ -69,9 +69,15 @@ class Pyocr:
             r = r + "".join(ch for ch, x, y, w, h in line) + " "
 
         return r
+    
+    def reconnaissance_and_print_rect(self, path_image: str) -> None:
+        image = cv2.imread(path_image)
+        image_d, image = pretraitement(image)
+        list_chars, brect = segmentation(image, image_d)
+        self.print_rect(list_chars, brect)
 
     def reconnaissance(self, path_image: str) -> str:
         image = cv2.imread(path_image)
         image_d, image = pretraitement(image)
         list_chars, brect = segmentation(image, image_d)
-        return self.printable(list_chars, brect)
+        return self.make_list_chars_reable(list_chars, brect)
