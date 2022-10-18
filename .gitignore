@@ -1,0 +1,4 @@
+**/dist
+**/tests
+**/src/pyocr.egg-info
+**/.idea
