@@ -1,5 +1,5 @@
 # Shinigami no me
-Pyocr is a simple package to do optical character recognition with python.
+Shinigami no me is a simple package to do optical character recognition with python.
 This package is made with python with [tensorflow](https://www.tensorflow.org) develop by google ,
 and [opencv-python](https://docs.opencv.org).
 this package uses CNN (convolution neuron network) to do image recognition
