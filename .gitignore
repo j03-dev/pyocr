@@ -1,5 +1,5 @@
 **/dist
-**/tests
-**/src/shinigami_no_me.egg-info
+**/test
+**/src/*.egg-info
 **/.idea
 **/.vscode

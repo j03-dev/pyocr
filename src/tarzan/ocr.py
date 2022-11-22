@@ -9,21 +9,49 @@ from .tools.segmentation import segmentation
 
 class Ocr:
     def __init__(self, model_path: str, classes_path: str) -> None:
-        self.DIRECTORY = os.path.abspath(".")
-        self.MODEL = tf.keras.models.load_model(
-            os.path.join(self.DIRECTORY, model_path))
+        """init model and load model and classes on started"""
+        self._DIRECTORY = os.path.abspath(".")
 
-        with open(classes_path, 'r') as classes_file:
-            self.CLASSES = [classe.strip("\n")
-                            for classe in classes_file.readlines()]
+        model_path = os.path.join(self._DIRECTORY, model_path)
+        if os.path.exists(model_path):
+            self._MODEL = tf.keras.models.load_model(model_path)
+        else:
+            raise Exception(f"this {model_path=} does't exists")
+
+        classes_path = os.path.join(self._DIRECTORY, classes_path)
+        if os.path.exists(classes_path):
+            with open(classes_path, 'r') as classes_file:
+                self._CLASSES = [classe.strip("\n")
+                                for classe in classes_file.readlines()]
+        else:
+            raise Exception(f"This {classes_path=} does't exists\n directory not found")
+
+    def set_model(self, model_path: str) -> None:
+        """function to load new model or change model"""
+        model_path = os.path.join(self._DIRECTORY, model_path)
+        if os.path.exists(model_path):
+            self._MODEL = tf.keras.models.load_model(model_path)
+        else:
+            raise Exception(f"this {model_path=} does't exists")
+
+    def set_classes(self, classes_path: str) -> None:
+        """function to change classes"""
+        classes_path = os.path.join(self._DIRECTORY, classes_path)
+        if os.path.exists(path):
+            with open(classes_path, 'r') as classes_file:
+                self._CLASSES = [classe.strip("\n")
+                                for classe in classes_file.readlines()]
+        else:
+            raise Exception(f"This {classes_path=} does't exists\n directory not found")
+
 
     def predict_classes(self, x: np.ndarray) -> str:
         """function to predict the classs  on image with softmax value"""
-        predict_x = self.MODEL.predict(x)
+        predict_x = self._MODEL.predict(x)
         classes_x = np.argmax(predict_x, axis=1)[0]
-        return self.CLASSES[classes_x]
+        return self._CLASSES[classes_x]
 
-    def add_rect_on_image(self, list_chars: list, brect_list: list, image: np.ndarray) -> np.ndarray:
+    def add_rect(self, list_chars: list, brect_list: list, image: np.ndarray) -> np.ndarray:
         """add rectangle countoure on image"""
         for char, brect in zip(list_chars, brect_list):
             x, y, w, h = brect
@@ -55,11 +83,12 @@ class Ocr:
             list_.sort(key=lambda x: x[1])
         return list_sorted
 
-    def make_list_chars_reable(self, list_chars: list, brect_list: tuple[int]) -> str:
-        """return string on predition sorted"""
+    def make_readable(self, list_chars: list[str], brect_list: tuple[int]) -> str:
+        """return string of predition sorted"""
         prediction_list_and_brect: list[tuple[str, int]] = []
         for chars, brect in zip(list_chars, brect_list):
             x, y, w, h = brect
+            # use model for recognition classe, return prediction classes
             ch: str = self.predict_classes(chars)
             prediction_list_and_brect.append(
                 (ch, x, y, w, h)
@@ -75,18 +104,18 @@ class Ocr:
 
         return r
 
-    def reconnaissance_and_add_rect_on_image(self, path_image: str) -> None:
-        """recgno image and add use function add rect"""
+    def reconnaissance_and_add_rect(self, path_image: str) -> None:
+        """'reconnaissance  d'image' and show image with rectangle"""
         image = cv2.imread(path_image)
         image_d, image = pretraitement(image)
         list_chars, brect = segmentation(image, image_d)
-        result: np.ndarray = self.add_rect_on_image(list_chars, brect, image) # return image with rect
+        result: np.ndarray = self.add_rect(list_chars, brect, image) # return image with rect
         cv2.imshow("result", result)
 
     def reconnaissance(self, path_image: str) -> str:
-        """recgno image and return string reable"""
+        """'reconnaissance d'image' and return string readable"""
         image = cv2.imread(path_image)
         image = cv2.imread(path_image)
         image_d, image = pretraitement(image)
         list_chars, brect = segmentation(image, image_d)
-        return self.make_list_chars_reable(list_chars, brect)
+        return self.make_readable(list_chars, brect)
