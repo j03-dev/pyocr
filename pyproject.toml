@@ -3,10 +3,10 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "shinigami_no_me"
+name = "tarzan"
 version = "0.0.1"
 authors = [
-    {name="shinigami_no_me", email="24nomeniavo@gmail.com"}
+    {name="Fitahiana Nomeniavo Joe", email="24nomeniavo@gmail.com", github="https://www.github.com/j03-dev"}
 ]
 description = 'Optical character recognition'
 requires-python = ">=3.9"

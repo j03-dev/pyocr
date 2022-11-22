@@ -3,7 +3,7 @@ import numpy as np
 from imutils.contours import sort_contours
 
 
-def segmentation(image_rgb: np.ndarray, image_d: np.ndarray) -> tuple:
+def segmentation(image_rgb: np.ndarray, image_d: np.ndarray) -> tuple[list]:
     result: list = []
     brect_list: list = []
     contours = cv2.findContours(

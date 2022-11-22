@@ -12,29 +12,33 @@ class OcrModel:
         testing_data: str,
         batch_size: int = 3,
         image_width: int = 32,
-        image_heigth: int = 32
+        image_heigth: int = 32,
+        validation_split: float = 0.3,
+        seed: int = 36
     ) -> None:
         self.__training_data = pathlib.Path(training_data)
         self.__testing_data = pathlib.Path(testing_data)
         self.__batch_size = batch_size
-        self.__img_w = image_width
-        self.__img_h = image_heigth
+        self.__image_width = image_width
+        self.__image_height = image_heigth
+        self.__validation_split = validation_split
+        self.__seed = seed
         self.__model = None
         self.__training = tf.keras.preprocessing.image_dataset_from_directory(
             self.__training_data,
-            validation_split=.3,
+            validation_split=self.__validation_split,
             subset="training",
-            seed=36,
-            image_size=(self.__img_h, self.__img_w),
+            seed=self.__seed,
+            image_size=(self.__image_height, self.__image_width),
             batch_size=self.__batch_size
         )
 
         self.__validation = tf.keras.preprocessing.image_dataset_from_directory(
             self.__testing_data,
-            validation_split=.3,
+            validation_split=self.__validation_split,
             subset="validation",
-            seed=36,
-            image_size=(self.__img_h, self.__img_w),
+            seed=self.__seed,
+            image_size=(self.__image_height, self.__image_width),
             batch_size=self.__batch_size
         )
 
