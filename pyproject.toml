@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "tarzan"
 version = "0.0.1"
 authors = [
-    {name="Fitahiana Nomeniavo Joe", email="24nomeniavo@gmail.com", github="https://www.github.com/j03-dev"}
+    {name="Fitahiana Nomeniavo Joe", email="24nomeniavo@gmail.com"}
 ]
 description = 'Optical character recognition'
 requires-python = ">=3.9"
