@@ -10,7 +10,7 @@ authors = [
 ]
 description = 'Optical character recognition'
 requires-python = ">=3.9"
-dependencies = ['tensorflow', 'opencv-python']
+dependencies = ['tensorflow', 'opencv-python', 'imutils']
 
 readme = "README.md"
 classifiers = [
