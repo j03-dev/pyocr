@@ -30,3 +30,4 @@ ocr_model = OcrModel(
 ocr_model.train_and_save(path="model_ocr_v1.model")
 ocr_model.save_classes(path="classes")
 ```
+### this is the dataset [ocr_dataset](https://www.kaggle.com/datasets/preatcher/standard-ocr-dataset)
